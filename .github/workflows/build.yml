@@ -39,22 +39,19 @@ jobs:
           path: belajar-anak-v1.0.0.apk
 
   deploy-web:
-    needs: build-apk
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.24.0"
-          channel: stable
+          channel: "stable'
       - run: flutter pub get
       - run: flutter build web --release --base-href "/irkop-belajar-anak/"
-      - uses: actions/configure-pages@v4
-      - uses: actions/upload-pages-artifact@v3
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: build/web
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web

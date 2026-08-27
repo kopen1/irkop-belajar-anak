@@ -322,7 +322,7 @@ class _AngkaScreenState extends State<AngkaScreen>
                   boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 12)]),
                 child: Center(
                   child: Text('⭐' * _targetNumber,
-                    style: const TextStyle(fontSize: _targetNumber <= 5 ? 36 : 24), textAlign: TextAlign.center),
+                    style: TextStyle(fontSize: _targetNumber <= 5 ? 36 : 24), textAlign: TextAlign.center),
                 ),
               ),
             ),
