@@ -6,6 +6,7 @@ import 'providers/providers.dart';
 import 'screens/angka_screen.dart';
 import 'screens/hewan_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/gambar_titik_screen.dart';
 import 'screens/huruf_screen.dart';
 import 'screens/kuis_screen.dart';
 import 'screens/prestasi_screen.dart';

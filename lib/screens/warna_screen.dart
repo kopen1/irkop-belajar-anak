@@ -161,7 +161,7 @@ class _WarnaScreenState extends State<WarnaScreen> with TickerProviderStateMixin
             offset: Offset(!_isCorrect&&_answered ? sin(_shakeCtrl.value*6*pi)*8*(1-_shakeCtrl.value) : 0, 0), child: ch),
             child: Container(width: 140, height: 140,
               decoration: BoxDecoration(color: tColor, shape: BoxShape.circle,
-                boxShadow: [BoxShadow(color: tColor.withOpacity(0.5), blurRadius: 24, offset: const Offset(0, 8))))))),
+                boxShadow: [BoxShadow(color: tColor.withOpacity(0.5), blurRadius: 24, offset: const Offset(0, 8))]))),
       const SizedBox(height: 16),
       Text('Warna apa ini?', style: GoogleFonts.nunito(fontSize: 22, fontWeight: FontWeight.w700, color: const Color(0xFF1E1B4B))),
       const Spacer(),
