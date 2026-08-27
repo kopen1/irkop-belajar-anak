@@ -19,10 +19,10 @@ class _KuisScreenState extends State<KuisScreen>
   static const _categoryLabels = ['Huruf', 'Angka', 'Warna', 'Hewan'];
   static const _categoryIcons = [Icons.text_fields, Icons.pin, Icons.palette, Icons.pets];
   static const _categoryColors = [
-    Color(0xFF7C3AED), // Ungu
-    Color(0xFF3B82F6), // Biru
-    Color(0xFFEC4899), // Pink
-    Color(0xFF22C55E), // Hijau
+    Color(0xFF7C3AED),
+    Color(0xFF3B82F6),
+    Color(0xFFEC4899),
+    Color(0xFF22C55E),
   ];
 
   List<KuisSoal> _questions = [];
@@ -34,7 +34,6 @@ class _KuisScreenState extends State<KuisScreen>
   bool _showResult = false;
   bool _showConfetti = false;
 
-  // Animasi
   late AnimationController _bounceCtrl;
   late AnimationController _shakeCtrl;
   late AnimationController _confettiCtrl;
@@ -100,10 +99,8 @@ class _KuisScreenState extends State<KuisScreen>
       AudioService.playSfx('salah');
     }
 
-    // TTS pertanyaan + jawaban
     AudioService.speak(soal.pertanyaan);
 
-    // Otomatis lanjut setelah 1.5 detik
     Future.delayed(const Duration(milliseconds: 1500), () {
       if (!mounted) return;
       if (_currentQ < _questions.length - 1) {
@@ -113,7 +110,6 @@ class _KuisScreenState extends State<KuisScreen>
           _selectedIdx = null;
           _isCorrect = false;
         });
-        // TTS soal berikutnya
         AudioService.speak(_questions[_currentQ].pertanyaan);
       } else {
         _finishQuiz();
@@ -125,7 +121,6 @@ class _KuisScreenState extends State<KuisScreen>
     setState(() => _showResult = true);
     AudioService.playSfx('yay');
 
-    // Simpan skor tertinggi
     final cat = _categories[_tabController.index];
     final prefs = await SharedPreferences.getInstance();
     final key = 'kuis_best_$cat';
@@ -176,7 +171,6 @@ class _KuisScreenState extends State<KuisScreen>
     );
   }
 
-  // ── AppBar ──
   Widget _buildAppBar() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -209,7 +203,6 @@ class _KuisScreenState extends State<KuisScreen>
     );
   }
 
-  // ── TabBar ──
   Widget _buildTabBar() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12),
@@ -250,7 +243,6 @@ class _KuisScreenState extends State<KuisScreen>
     );
   }
 
-  // ── Start Screen ──
   Widget _buildStartScreen() {
     final catIdx = _tabController.index;
     final color = _categoryColors[catIdx];
@@ -295,7 +287,6 @@ class _KuisScreenState extends State<KuisScreen>
     );
   }
 
-  // ── Quiz Screen ──
   Widget _buildQuizScreen() {
     final soal = _questions[_currentQ];
     final catColor = _categoryColors[_tabController.index];
@@ -305,7 +296,6 @@ class _KuisScreenState extends State<KuisScreen>
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
-          // Progress bar
           _buildProgressBar(progress, catColor),
           const SizedBox(height: 8),
           Text(
@@ -313,28 +303,20 @@ class _KuisScreenState extends State<KuisScreen>
             style: GoogleFonts.nunito(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey[600]),
           ),
           const Spacer(flex: 1),
-
-          // Display area
           _buildDisplay(soal, catColor),
           const SizedBox(height: 20),
-
-          // Pertanyaan
           Text(
             soal.pertanyaan,
             style: GoogleFonts.nunito(fontSize: 22, fontWeight: FontWeight.w700, color: const Color(0xFF1E1B4B)),
             textAlign: TextAlign.center,
           ),
           const Spacer(flex: 1),
-
-          // Opsi jawaban 2x2
           _buildOptions(soal, catColor),
           const SizedBox(height: 16),
-
-          // Skor
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.star, color: const Color(0xFFF59E0B), size: 22),
+              const Icon(Icons.star, color: Color(0xFFF59E0B), size: 22),
               const SizedBox(width: 6),
               Text(
                 'Skor: $_score',
@@ -348,7 +330,6 @@ class _KuisScreenState extends State<KuisScreen>
     );
   }
 
-  // ── Display Area (beda tiap kategori) ──
   Widget _buildDisplay(KuisSoal soal, Color catColor) {
     return AnimatedBuilder(
       animation: _bounceCtrl,
@@ -417,10 +398,8 @@ class _KuisScreenState extends State<KuisScreen>
                 soal.displayText ?? '',
                 style: GoogleFonts.nunito(fontSize: 64, fontWeight: FontWeight.w800, color: Colors.white),
               ),
-              Text(
-                '⭐' * n,
-                style: const TextStyle(fontSize: 14),
-              ),
+              if (n > 0 && n <= 10)
+                Text('⭐' * n, style: const TextStyle(fontSize: 14)),
             ],
           ),
         );
@@ -449,10 +428,7 @@ class _KuisScreenState extends State<KuisScreen>
             ],
           ),
           alignment: Alignment.center,
-          child: Text(
-            soal.displayText ?? '',
-            style: const TextStyle(fontSize: 72),
-          ),
+          child: Text(soal.displayText ?? '', style: const TextStyle(fontSize: 72)),
         );
 
       default:
@@ -460,7 +436,6 @@ class _KuisScreenState extends State<KuisScreen>
     }
   }
 
-  // ── Options Grid ──
   Widget _buildOptions(KuisSoal soal, Color catColor) {
     return GridView.count(
       crossAxisCount: 2,
@@ -474,7 +449,7 @@ class _KuisScreenState extends State<KuisScreen>
         final isCorrectOpt = i == soal.jawabanIndex;
         Color bgColor = Colors.white;
         Color textColor = const Color(0xFF1E1B4B);
-        Color borderColor = Colors.grey.withOpacity(0.2);
+        Color borderColor = catColor.withOpacity(0.3);
 
         if (_answered) {
           if (isCorrectOpt) {
@@ -490,11 +465,8 @@ class _KuisScreenState extends State<KuisScreen>
             textColor = Colors.grey;
             borderColor = Colors.transparent;
           }
-        } else {
-          borderColor = catColor.withOpacity(0.3);
         }
 
-        // Warna quiz: tampilkan preview warna di opsi
         Widget label;
         if (soal.kategori == 'warna') {
           label = Row(
@@ -503,7 +475,7 @@ class _KuisScreenState extends State<KuisScreen>
               Container(
                 width: 24, height: 24,
                 decoration: BoxDecoration(
-                  color: _getColorByName(soal.opsi[i]),
+                  color: getWarnaDariNama(soal.opsi[i]),
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white, width: 2),
                 ),
@@ -555,17 +527,6 @@ class _KuisScreenState extends State<KuisScreen>
     );
   }
 
-  Color _getColorByName(String name) {
-    final map = <String, int>{
-      'Merah': _warnaMerah, 'Biru': _warnaBiru, 'Kuning': _warnaKuning,
-      'Hijau': _warnaHijau, 'Oranye': _warnaOranye, 'Ungu': _warnaUngu,
-      'Pink': _warnaPink, 'Coklat': _warnaCoklat,
-      'Hitam': 0xFF000000, 'Putih': 0xFFFFFFFF, 'Abu-abu': 0xFF9CA3AF,
-    };
-    return Color(map[name] ?? 0xFFCCCCCC);
-  }
-
-  // ── Progress Bar ──
   Widget _buildProgressBar(double progress, Color color) {
     return Container(
       height: 10,
@@ -585,7 +546,6 @@ class _KuisScreenState extends State<KuisScreen>
     );
   }
 
-  // ── Result Screen ──
   Widget _buildResultScreen() {
     final catColor = _categoryColors[_tabController.index];
     final stars = _starCount;
@@ -606,8 +566,6 @@ class _KuisScreenState extends State<KuisScreen>
               style: GoogleFonts.nunito(fontSize: 16, color: Colors.grey[600]),
             ),
             const SizedBox(height: 32),
-
-            // Bintang
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(3, (i) {
@@ -628,8 +586,6 @@ class _KuisScreenState extends State<KuisScreen>
               }),
             ),
             const SizedBox(height: 32),
-
-            // Skor
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
               decoration: BoxDecoration(
@@ -645,8 +601,6 @@ class _KuisScreenState extends State<KuisScreen>
               ),
             ),
             const SizedBox(height: 40),
-
-            // Tombol ulangi
             _buildBigButton(
               label: 'Ulangi Kuis',
               color: catColor,
@@ -654,8 +608,6 @@ class _KuisScreenState extends State<KuisScreen>
               onTap: () => _loadCategory(_tabController.index),
             ),
             const SizedBox(height: 16),
-
-            // Tombol kembali
             _buildBigButton(
               label: 'Kembali',
               color: Colors.grey[400]!,
@@ -668,7 +620,6 @@ class _KuisScreenState extends State<KuisScreen>
     );
   }
 
-  // ── Big Button ──
   Widget _buildBigButton({
     required String label,
     required Color color,
@@ -706,7 +657,6 @@ class _KuisScreenState extends State<KuisScreen>
     );
   }
 
-  // ── Confetti Overlay ──
   Widget _buildConfettiOverlay() {
     final rng = Random();
     final particles = List.generate(40, (_) {
@@ -765,7 +715,6 @@ class _KuisScreenState extends State<KuisScreen>
   }
 }
 
-// ── Confetti Particle ──
 class _ConfettiParticle {
   final double x, vx, vy, size, rotation, rotSpeed;
   final Color color;

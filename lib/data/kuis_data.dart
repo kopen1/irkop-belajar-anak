@@ -18,15 +18,17 @@ class KuisSoal {
   });
 }
 
-const _warnaMerah = 0xFFEF4444;
-const _warnaBiru = 0xFF3B82F6;
-const _warnaKuning = 0xFFEAB308;
-const _warnaHijau = 0xFF22C55E;
-const _warnaOranye = 0xFFF97316;
-const _warnaUngu = 0xFF7C3AED;
-const _warnaPink = 0xFFEC4899;
-const _warnaCoklat = 0xFF92400E;
+// ── Warna publik (dipakai oleh kuis_screen & kuis_data) ──
+const warnaMerah = 0xFFEF4444;
+const warnaBiru = 0xFF3B82F6;
+const warnaKuning = 0xFFEAB308;
+const warnaHijau = 0xFF22C55E;
+const warnaOranye = 0xFFF97316;
+const warnaUngu = 0xFF7C3AED;
+const warnaPink = 0xFFEC4899;
+const warnaCoklat = 0xFF92400E;
 
+// ── Soal Huruf ──
 final List<KuisSoal> hurufSoal = [
   KuisSoal(pertanyaan: 'Huruf apa ini?', kategori: 'huruf', opsi: ['A', 'B', 'C', 'D'], jawabanIndex: 0, displayText: 'A'),
   KuisSoal(pertanyaan: 'Huruf apa ini?', kategori: 'huruf', opsi: ['E', 'F', 'G', 'H'], jawabanIndex: 0, displayText: 'E'),
@@ -40,6 +42,7 @@ final List<KuisSoal> hurufSoal = [
   KuisSoal(pertanyaan: 'Huruf apa ini?', kategori: 'huruf', opsi: ['X', 'Y', 'Z', 'W'], jawabanIndex: 2, displayText: 'Z'),
 ];
 
+// ── Soal Angka ──
 final List<KuisSoal> angkaSoal = [
   KuisSoal(pertanyaan: 'Berapa jumlah bintang ini?', kategori: 'angka', opsi: ['1', '2', '3', '4'], jawabanIndex: 0, displayText: '1'),
   KuisSoal(pertanyaan: 'Berapa jumlah ini?', kategori: 'angka', opsi: ['2', '4', '3', '5'], jawabanIndex: 2, displayText: '3'),
@@ -53,19 +56,21 @@ final List<KuisSoal> angkaSoal = [
   KuisSoal(pertanyaan: 'Angka berapa ini?', kategori: 'angka', opsi: ['7', '9', '8', '6'], jawabanIndex: 2, displayText: '8'),
 ];
 
+// ── Soal Warna ──
 final List<KuisSoal> warnaSoal = [
-  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Merah', 'Biru', 'Kuning', 'Hijau'], jawabanIndex: 0, displayColorHex: _warnaMerah),
-  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Hijau', 'Biru', 'Ungu', 'Pink'], jawabanIndex: 1, displayColorHex: _warnaBiru),
-  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Oranye', 'Merah', 'Kuning', 'Hijau'], jawabanIndex: 2, displayColorHex: _warnaKuning),
-  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Merah', 'Hijau', 'Biru', 'Kuning'], jawabanIndex: 1, displayColorHex: _warnaHijau),
-  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Kuning', 'Merah', 'Oranye', 'Pink'], jawabanIndex: 2, displayColorHex: _warnaOranye),
-  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Biru', 'Pink', 'Ungu', 'Merah'], jawabanIndex: 2, displayColorHex: _warnaUngu),
-  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Merah', 'Ungu', 'Pink', 'Oranye'], jawabanIndex: 2, displayColorHex: _warnaPink),
-  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Hitam', 'Coklat', 'Abu-abu', 'Merah'], jawabanIndex: 1, displayColorHex: _warnaCoklat),
-  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Pink', 'Oranye', 'Merah', 'Ungu'], jawabanIndex: 2, displayColorHex: _warnaMerah),
-  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Ungu', 'Hijau', 'Biru', 'Kuning'], jawabanIndex: 2, displayColorHex: _warnaBiru),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Merah', 'Biru', 'Kuning', 'Hijau'], jawabanIndex: 0, displayColorHex: warnaMerah),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Hijau', 'Biru', 'Ungu', 'Pink'], jawabanIndex: 1, displayColorHex: warnaBiru),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Oranye', 'Merah', 'Kuning', 'Hijau'], jawabanIndex: 2, displayColorHex: warnaKuning),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Merah', 'Hijau', 'Biru', 'Kuning'], jawabanIndex: 1, displayColorHex: warnaHijau),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Kuning', 'Merah', 'Oranye', 'Pink'], jawabanIndex: 2, displayColorHex: warnaOranye),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Biru', 'Pink', 'Ungu', 'Merah'], jawabanIndex: 2, displayColorHex: warnaUngu),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Merah', 'Ungu', 'Pink', 'Oranye'], jawabanIndex: 2, displayColorHex: warnaPink),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Hitam', 'Coklat', 'Abu-abu', 'Merah'], jawabanIndex: 1, displayColorHex: warnaCoklat),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Pink', 'Oranye', 'Merah', 'Ungu'], jawabanIndex: 2, displayColorHex: warnaMerah),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Ungu', 'Hijau', 'Biru', 'Kuning'], jawabanIndex: 2, displayColorHex: warnaBiru),
 ];
 
+// ── Soal Hewan ──
 final List<KuisSoal> hewanSoal = [
   KuisSoal(pertanyaan: 'Hewan apa ini?', kategori: 'hewan', opsi: ['Kucing', 'Anjing', 'Kelinci', 'Sapi'], jawabanIndex: 0, displayText: '🐱'),
   KuisSoal(pertanyaan: 'Hewan apa ini?', kategori: 'hewan', opsi: ['Kucing', 'Sapi', 'Anjing', 'Ayam'], jawabanIndex: 2, displayText: '🐶'),
@@ -79,6 +84,7 @@ final List<KuisSoal> hewanSoal = [
   KuisSoal(pertanyaan: 'Hewan apa ini?', kategori: 'hewan', opsi: ['Katak', 'Kepiting', 'Ikan', 'Kura-kura'], jawabanIndex: 3, displayText: '🐢'),
 ];
 
+// ── Getter per kategori ──
 List<KuisSoal> getKuisByKategori(String kategori) {
   switch (kategori) {
     case 'huruf': return hurufSoal;
@@ -87,4 +93,31 @@ List<KuisSoal> getKuisByKategori(String kategori) {
     case 'hewan': return hewanSoal;
     default: return [];
   }
+}
+
+/// Dipakai oleh KuisProvider di providers.dart.
+/// Ambil [jumlah] soal acak dari [kategori].
+List<KuisSoal> buatSoal(String kategori, int jumlah) {
+  final all = getKuisByKategori(kategori);
+  if (all.isEmpty) return [];
+  final shuffled = List<KuisSoal>.from(all)..shuffle();
+  return shuffled.take(jumlah.clamp(0, all.length)).toList();
+}
+
+/// Map nama warna → hex color. Dipakai oleh kuis_screen.
+Color getWarnaDariNama(String name) {
+  final map = <String, int>{
+    'Merah': warnaMerah,
+    'Biru': warnaBiru,
+    'Kuning': warnaKuning,
+    'Hijau': warnaHijau,
+    'Oranye': warnaOranye,
+    'Ungu': warnaUngu,
+    'Pink': warnaPink,
+    'Coklat': warnaCoklat,
+    'Hitam': 0xFF000000,
+    'Putih': 0xFFFFFFFF,
+    'Abu-abu': 0xFF9CA3AF,
+  };
+  return Color(map[name] ?? 0xFFCCCCCC);
 }
