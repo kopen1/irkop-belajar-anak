@@ -24,6 +24,7 @@ final router = GoRouter(
     GoRoute(path: '/warna', builder: (_, __) => const WarnaScreen()),
     GoRoute(path: '/hewan', builder: (_, __) => const HewanScreen()),
     GoRoute(path: '/kuis', builder: (_, __) => const KuisScreen()),
+    GoRoute(path: '/gambar-titik', builder: (_,__) => const GambarTitikScreen()),
     GoRoute(path: '/prestasi', builder: (_, __) => const PrestasiScreen()),
   ],
 );

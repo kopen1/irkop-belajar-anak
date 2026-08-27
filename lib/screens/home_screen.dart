@@ -8,6 +8,7 @@ import '../providers/providers.dart';
 import '../theme/app_theme.dart';
 import '../widgets/maskot.dart';
 import '../widgets/menu_card.dart';
+import '../screens/gambar_titik_screen.dart';
 
 /// Home — 6 menu card + gradient + maskot + mute (PRD B.2.7)
 class HomeScreen extends StatelessWidget {
@@ -26,6 +27,7 @@ class HomeScreen extends StatelessWidget {
       _Menu('Hewan', '🦁', AppColors.success, '/hewan', progress.persen(progress.hewanDipelajari.length, 20)),
       _Menu('Kuis', '🧠', AppColors.secondary, '/kuis',
           progress.persen(progress.skorTertinggi.values.fold(0, (m, s) => s > m ? s : m), 10)),
+      _menuCard(Icons.draw, 'Gambar Titik', () => context.push('/gambar-titik')),
       _Menu('Prestasi', '🏆', const Color(0xFFD4AF37), '/prestasi', progress.persen(progress.totalBintang, 40)),
     ];
 
