@@ -1,0 +1,11 @@
+{
+  "name": "Belajar Anak",
+  "short_name": "Belajar Anak",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#F5F3FF",
+  "theme_color": "#7C3AED",
+  "description": "Bermain Sambil Belajar untuk Anak Usia 4-6 Tahun",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false
+}
