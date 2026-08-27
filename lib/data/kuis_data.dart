@@ -1,96 +1,90 @@
-import 'dart:math';
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
-import 'angka_data.dart';
-import 'hewan_data.dart';
-import 'huruf_data.dart';
-import 'warna_data.dart';
-
-/// Model Kuis — PRD D.2
 class KuisSoal {
-  final String pertanyaan;       // "Ini hewan apa?"
-  final String audioPertanyaan;  // opsional (aset menyusul)
-  final List<String> opsi;       // 4 pilihan
+  final String pertanyaan;
+  final String kategori;
+  final List<String> opsi;
   final int jawabanIndex;
-  final String kategori;         // "hewan" | "huruf" | "angka" | "warna"
-  final String emojiVisual;      // huruf / emoji
-  final Color? warnaVisual;      // lingkaran warna
-  final int? jumlahVisual;       // berapa emoji ditampilkan
-  KuisSoal({
+  final String? displayText;
+  final int? displayColorHex;
+
+  const KuisSoal({
     required this.pertanyaan,
-    this.audioPertanyaan = '',
+    required this.kategori,
     required this.opsi,
     required this.jawabanIndex,
-    required this.kategori,
-    this.emojiVisual = '',
-    this.warnaVisual,
-    this.jumlahVisual,
+    this.displayText,
+    this.displayColorHex,
   });
 }
 
-final Random _rng = Random();
+const _warnaMerah = 0xFFEF4444;
+const _warnaBiru = 0xFF3B82F6;
+const _warnaKuning = 0xFFEAB308;
+const _warnaHijau = 0xFF22C55E;
+const _warnaOranye = 0xFFF97316;
+const _warnaUngu = 0xFF7C3AED;
+const _warnaPink = 0xFFEC4899;
+const _warnaCoklat = 0xFF92400E;
 
-List<String> _acakOpsi(String benar, Iterable<String> semua) {
-  final distraktor = (semua.toList()..shuffle(_rng)).where((e) => e != benar).take(3).toList();
-  return [...distraktor, benar]..shuffle(_rng);
-}
+final List<KuisSoal> hurufSoal = [
+  KuisSoal(pertanyaan: 'Huruf apa ini?', kategori: 'huruf', opsi: ['A', 'B', 'C', 'D'], jawabanIndex: 0, displayText: 'A'),
+  KuisSoal(pertanyaan: 'Huruf apa ini?', kategori: 'huruf', opsi: ['E', 'F', 'G', 'H'], jawabanIndex: 0, displayText: 'E'),
+  KuisSoal(pertanyaan: 'Huruf apa ini?', kategori: 'huruf', opsi: ['G', 'I', 'K', 'M'], jawabanIndex: 1, displayText: 'I'),
+  KuisSoal(pertanyaan: 'Huruf apa ini?', kategori: 'huruf', opsi: ['L', 'N', 'M', 'O'], jawabanIndex: 2, displayText: 'M'),
+  KuisSoal(pertanyaan: 'Huruf apa ini?', kategori: 'huruf', opsi: ['P', 'O', 'Q', 'R'], jawabanIndex: 1, displayText: 'O'),
+  KuisSoal(pertanyaan: 'Huruf apa ini?', kategori: 'huruf', opsi: ['R', 'S', 'T', 'U'], jawabanIndex: 1, displayText: 'S'),
+  KuisSoal(pertanyaan: 'Huruf apa ini?', kategori: 'huruf', opsi: ['U', 'V', 'W', 'X'], jawabanIndex: 0, displayText: 'U'),
+  KuisSoal(pertanyaan: 'Huruf apa ini?', kategori: 'huruf', opsi: ['D', 'B', 'P', 'R'], jawabanIndex: 1, displayText: 'B'),
+  KuisSoal(pertanyaan: 'Huruf apa ini?', kategori: 'huruf', opsi: ['H', 'K', 'I', 'J'], jawabanIndex: 1, displayText: 'K'),
+  KuisSoal(pertanyaan: 'Huruf apa ini?', kategori: 'huruf', opsi: ['X', 'Y', 'Z', 'W'], jawabanIndex: 2, displayText: 'Z'),
+];
 
-/// 10 soal per sesi — diacak dari bank soal (PRD B.2.5)
-List<KuisSoal> buatSoal(String kategori, int jumlah) {
+final List<KuisSoal> angkaSoal = [
+  KuisSoal(pertanyaan: 'Berapa jumlah bintang ini?', kategori: 'angka', opsi: ['1', '2', '3', '4'], jawabanIndex: 0, displayText: '1'),
+  KuisSoal(pertanyaan: 'Berapa jumlah ini?', kategori: 'angka', opsi: ['2', '4', '3', '5'], jawabanIndex: 2, displayText: '3'),
+  KuisSoal(pertanyaan: 'Berapa jumlah ini?', kategori: 'angka', opsi: ['5', '6', '4', '7'], jawabanIndex: 0, displayText: '5'),
+  KuisSoal(pertanyaan: 'Angka berapa ini?', kategori: 'angka', opsi: ['6', '8', '7', '9'], jawabanIndex: 2, displayText: '7'),
+  KuisSoal(pertanyaan: 'Angka berapa ini?', kategori: 'angka', opsi: ['1', '3', '2', '4'], jawabanIndex: 2, displayText: '2'),
+  KuisSoal(pertanyaan: 'Angka berapa ini?', kategori: 'angka', opsi: ['8', '9', '10', '7'], jawabanIndex: 1, displayText: '9'),
+  KuisSoal(pertanyaan: 'Berapa jumlah ini?', kategori: 'angka', opsi: ['3', '5', '4', '6'], jawabanIndex: 2, displayText: '4'),
+  KuisSoal(pertanyaan: 'Angka berapa ini?', kategori: 'angka', opsi: ['5', '7', '6', '8'], jawabanIndex: 2, displayText: '6'),
+  KuisSoal(pertanyaan: 'Angka berapa ini?', kategori: 'angka', opsi: ['9', '10', '8', '11'], jawabanIndex: 1, displayText: '10'),
+  KuisSoal(pertanyaan: 'Angka berapa ini?', kategori: 'angka', opsi: ['7', '9', '8', '6'], jawabanIndex: 2, displayText: '8'),
+];
+
+final List<KuisSoal> warnaSoal = [
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Merah', 'Biru', 'Kuning', 'Hijau'], jawabanIndex: 0, displayColorHex: _warnaMerah),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Hijau', 'Biru', 'Ungu', 'Pink'], jawabanIndex: 1, displayColorHex: _warnaBiru),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Oranye', 'Merah', 'Kuning', 'Hijau'], jawabanIndex: 2, displayColorHex: _warnaKuning),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Merah', 'Hijau', 'Biru', 'Kuning'], jawabanIndex: 1, displayColorHex: _warnaHijau),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Kuning', 'Merah', 'Oranye', 'Pink'], jawabanIndex: 2, displayColorHex: _warnaOranye),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Biru', 'Pink', 'Ungu', 'Merah'], jawabanIndex: 2, displayColorHex: _warnaUngu),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Merah', 'Ungu', 'Pink', 'Oranye'], jawabanIndex: 2, displayColorHex: _warnaPink),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Hitam', 'Coklat', 'Abu-abu', 'Merah'], jawabanIndex: 1, displayColorHex: _warnaCoklat),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Pink', 'Oranye', 'Merah', 'Ungu'], jawabanIndex: 2, displayColorHex: _warnaMerah),
+  KuisSoal(pertanyaan: 'Warna apa ini?', kategori: 'warna', opsi: ['Ungu', 'Hijau', 'Biru', 'Kuning'], jawabanIndex: 2, displayColorHex: _warnaBiru),
+];
+
+final List<KuisSoal> hewanSoal = [
+  KuisSoal(pertanyaan: 'Hewan apa ini?', kategori: 'hewan', opsi: ['Kucing', 'Anjing', 'Kelinci', 'Sapi'], jawabanIndex: 0, displayText: '🐱'),
+  KuisSoal(pertanyaan: 'Hewan apa ini?', kategori: 'hewan', opsi: ['Kucing', 'Sapi', 'Anjing', 'Ayam'], jawabanIndex: 2, displayText: '🐶'),
+  KuisSoal(pertanyaan: 'Hewan apa ini?', kategori: 'hewan', opsi: ['Kambing', 'Sapi', 'Kuda', 'Ayam'], jawabanIndex: 1, displayText: '🐮'),
+  KuisSoal(pertanyaan: 'Hewan apa ini?', kategori: 'hewan', opsi: ['Bebek', 'Ayam', 'Burung', 'Kucing'], jawabanIndex: 1, displayText: '🐔'),
+  KuisSoal(pertanyaan: 'Hewan apa ini?', kategori: 'hewan', opsi: ['Katak', 'Ikan', 'Kura-kura', 'Kepiting'], jawabanIndex: 0, displayText: '🐸'),
+  KuisSoal(pertanyaan: 'Hewan apa ini?', kategori: 'hewan', opsi: ['Gajah', 'Harimau', 'Monyet', 'Kuda'], jawabanIndex: 0, displayText: '🐘'),
+  KuisSoal(pertanyaan: 'Hewan apa ini?', kategori: 'hewan', opsi: ['Kambing', 'Harimau', 'Monyet', 'Gajah'], jawabanIndex: 1, displayText: '🐅'),
+  KuisSoal(pertanyaan: 'Hewan apa ini?', kategori: 'hewan', opsi: ['Katak', 'Kura-kura', 'Ikan', 'Kepiting'], jawabanIndex: 2, displayText: '🐟'),
+  KuisSoal(pertanyaan: 'Hewan apa ini?', kategori: 'hewan', opsi: ['Lebah', 'Kupu-kupu', 'Semut', 'Burung'], jawabanIndex: 1, displayText: '🦋'),
+  KuisSoal(pertanyaan: 'Hewan apa ini?', kategori: 'hewan', opsi: ['Katak', 'Kepiting', 'Ikan', 'Kura-kura'], jawabanIndex: 3, displayText: '🐢'),
+];
+
+List<KuisSoal> getKuisByKategori(String kategori) {
   switch (kategori) {
-    case 'huruf':
-      final bank = List.generate(daftarHuruf.length, (i) => i)..shuffle(_rng);
-      return bank.take(jumlah).map((i) {
-        final h = daftarHuruf[i];
-        final tampil = '${h.hurufBesar}${h.hurufKecil}';
-        final opsi = _acakOpsi(tampil, daftarHuruf.map((e) => '${e.hurufBesar}${e.hurufKecil}'));
-        return KuisSoal(
-          pertanyaan: 'Ini huruf apa?',
-          opsi: opsi,
-          jawabanIndex: opsi.indexOf(tampil),
-          kategori: 'huruf',
-          emojiVisual: tampil,
-        );
-      }).toList();
-    case 'angka':
-      return List.generate(jumlah, (_) {
-        final n = 1 + _rng.nextInt(10);
-        final a = daftarAngka[n - 1];
-        final opsi = _acakOpsi(a.kata, daftarAngka.map((e) => e.kata));
-        return KuisSoal(
-          pertanyaan: 'Ada berapa benda ini?',
-          opsi: opsi,
-          jawabanIndex: opsi.indexOf(a.kata),
-          kategori: 'angka',
-          emojiVisual: a.emoji,
-          jumlahVisual: n,
-        );
-      });
-    case 'warna':
-      final bank = List.generate(daftarWarna.length, (i) => i)..shuffle(_rng);
-      return bank.take(jumlah).map((i) {
-        final w = daftarWarna[i];
-        final opsi = _acakOpsi(w.nama, daftarWarna.map((e) => e.nama));
-        return KuisSoal(
-          pertanyaan: 'Ini warna apa?',
-          opsi: opsi,
-          jawabanIndex: opsi.indexOf(w.nama),
-          kategori: 'warna',
-          warnaVisual: w.warna,
-        );
-      }).toList();
-    default:
-      final bank = List.generate(daftarHewan.length, (i) => i)..shuffle(_rng);
-      return bank.take(jumlah).map((i) {
-        final h = daftarHewan[i];
-        final opsi = _acakOpsi(h.nama, daftarHewan.map((e) => e.nama));
-        return KuisSoal(
-          pertanyaan: 'Ini hewan apa?',
-          opsi: opsi,
-          jawabanIndex: opsi.indexOf(h.nama),
-          kategori: 'hewan',
-          emojiVisual: h.emoji,
-        );
-      }).toList();
+    case 'huruf': return hurufSoal;
+    case 'angka': return angkaSoal;
+    case 'warna': return warnaSoal;
+    case 'hewan': return hewanSoal;
+    default: return [];
   }
 }
